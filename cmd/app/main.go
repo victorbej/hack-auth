@@ -19,7 +19,7 @@ func main() {
 
 	//router.NotFoundHandler = app.NotFoundHandler
 
-	err := http.ListenAndServe("https://hack-auth.herokuapp.com/", router) //Launch the app, visit localhost:8000/api
+	err := http.ListenAndServe("localhost:3000", router) //Launch the app, visit localhost:8000/api
 	if err != nil {
 		fmt.Print(err)
 	}
