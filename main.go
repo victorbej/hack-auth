@@ -6,10 +6,11 @@ import (
 	"github.com/victorbej/hack-auth/internal/domain/app"
 	"github.com/victorbej/hack-auth/internal/domain/controllers"
 	"net/http"
+	"os"
 )
 
 func main() {
-	//port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
@@ -19,7 +20,7 @@ func main() {
 
 	//router.NotFoundHandler = app.NotFoundHandler
 
-	err := http.ListenAndServe(":3000", router) //Launch the app, visit localhost:8000/api
+	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:8000/api
 	if err != nil {
 		fmt.Print(err)
 	}
