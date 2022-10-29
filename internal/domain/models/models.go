@@ -112,7 +112,7 @@ func GetUser(u uint) *Account {
 
 	acc := &Account{}
 	GetDB().Table("accounts").Where("id = ?", u).First(acc)
-	if acc.Email == "" { //Пользователь не найден!
+	if acc.Email == "" { //User not found!
 		return nil
 	}
 
