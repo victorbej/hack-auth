@@ -9,9 +9,6 @@ import (
 )
 
 var CreateUserTable = func(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
 	user := r.Context().Value("user").(uint) //Grab the id of the user that send the request
 	ut := &models.UserTable{}
 
@@ -27,9 +24,6 @@ var CreateUserTable = func(w http.ResponseWriter, r *http.Request) {
 }
 
 var GetUserTablesFor = func(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
 	id := r.Context().Value("user").(uint)
 	data := models.GetUserTables(id)
 	resp := utils.Message(true, "success")

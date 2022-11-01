@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"os"
-
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"github.com/victorbej/hack-auth/internal/domain/app"
 	"github.com/victorbej/hack-auth/internal/domain/controllers"
+	"net/http"
+	"os"
 )
 
 func main() {
@@ -23,7 +23,14 @@ func main() {
 
 	//router.NotFoundHandler = app.NotFoundHandler
 
-	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:8000/api
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"https://hack-auth.herokuapp.com"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
+
+	err := http.ListenAndServe(":"+port, handler) //Launch the app, visit localhost:8000/api
 	if err != nil {
 		fmt.Print(err)
 	}
