@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/gorilla/mux"
 	"github.com/victorbej/hack-auth/internal/domain/app"
 	"github.com/victorbej/hack-auth/internal/domain/controllers"
-	"net/http"
-	"os"
 )
 
 func main() {
@@ -15,8 +16,8 @@ func main() {
 
 	router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
 	router.HandleFunc("/api/user/login", controllers.Authenticate).Methods("POST")
-	router.HandleFunc("/api/table/new", controllers.CreateUserTable).Methods("POST")
-	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET")
+	router.HandleFunc("/api/table/new", controllers.CreateUserTable).Methods("POST").Headers("X-Requested-With", "XMLHttpRequest")
+	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET").Headers("X-Requested-With", "XMLHttpRequest")
 
 	router.Use(app.JwtAuthentication) //attach JWT auth middleware
 
