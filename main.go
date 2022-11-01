@@ -17,7 +17,7 @@ func main() {
 	router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
 	router.HandleFunc("/api/user/login", controllers.Authenticate).Methods("POST")
 	router.HandleFunc("/api/table/new", controllers.CreateUserTable).Methods("POST").Headers("X-Requested-With", "XMLHttpRequest")
-	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET").Headers("X-Requested-With", "XMLHttpRequest")
+	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET").Headers("X-Requested-With", "XMLHttpRequest").Headers("Access-Control-Allow-Origin", "no-cors")
 
 	router.Use(app.JwtAuthentication) //attach JWT auth middleware
 
