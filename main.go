@@ -17,14 +17,16 @@ func main() {
 	router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
 	router.HandleFunc("/api/user/login", controllers.Authenticate).Methods("POST")
 	router.HandleFunc("/api/table/new", controllers.CreateUserTable).Methods("POST")
-	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET", "OPTIONS")
+	router.HandleFunc("/api/me/tables", controllers.GetUserTablesFor).Methods("GET")
 
 	router.Use(app.JwtAuthentication) //attach JWT auth middleware
 
 	//router.NotFoundHandler = app.NotFoundHandler
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"https://hack-auth.herokuapp.com"},
+		AllowedOrigins:   []string{"Access-Control-Allow-Origin", "*"},
+		AllowedMethods:   []string{"Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE"},
+		AllowedHeaders:   []string{"Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"},
 		AllowCredentials: true,
 	})
 
